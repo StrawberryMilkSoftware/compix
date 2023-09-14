@@ -1,0 +1,3 @@
+/home/dumbprogrammer/projects/compix/build/CMakeFiles/compix.dir
+/home/dumbprogrammer/projects/compix/build/CMakeFiles/edit_cache.dir
+/home/dumbprogrammer/projects/compix/build/CMakeFiles/rebuild_cache.dir
