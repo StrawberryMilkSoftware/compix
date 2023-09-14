@@ -168,4 +168,6 @@ CMakeFiles/compix.dir/src/main.cpp.o: \
  /home/dumbprogrammer/projects/compix/src/tokenization.hpp \
  /usr/include/c++/11/optional /usr/include/c++/11/utility \
  /usr/include/c++/11/bits/stl_relops.h \
- /usr/include/c++/11/bits/enable_special_members.h
+ /usr/include/c++/11/bits/enable_special_members.h \
+ /home/dumbprogrammer/projects/compix/src/parser.hpp \
+ /home/dumbprogrammer/projects/compix/src/generation.hpp
