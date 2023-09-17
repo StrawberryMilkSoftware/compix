@@ -8,9 +8,9 @@
 
 
 int main(int argc, char* argv[]) {
-    if (argc != 2) {
-        std::cerr << "Please provide an input file." << std::endl;
-        std::cerr << "compix <INPUTFILE.CPX>" << std::endl;
+    if (argc != 3) {
+        std::cerr << "Please provide an input and output file." << std::endl;
+        std::cerr << "compix <INPUTFILE.CPX> <OUTPUTFILE>" << std::endl;
         return EXIT_FAILURE;
     }
 
@@ -26,22 +26,25 @@ int main(int argc, char* argv[]) {
     std::vector<Token> tokens = tokenizer.tokenize();
 
     Parser parser(std::move(tokens));;
-    std::optional<NodeExit> tree = parser.parse();
+    std::optional<NodeProg> prog = parser.parse_prog();
 
-    if (!tree.has_value()) {
-        std::cerr << "No exit statement found!" << std::endl;
+    if (!prog.has_value()) {
+        std::cerr << "Invalid program!" << std::endl;
         exit(EXIT_FAILURE);
     }
 
-    Generator generator(tree.value());
+    Generator generator(prog.value());
 
     {
         std::fstream file("out.asm", std::ios::out);
-        file << generator.generate();
+        file << generator.gen_prog();
     }
 
+    std::string outputName(argv[2]);
+    std::string link_str = "ld -o " + outputName + " out.o";
+
     system("nasm -felf64 out.asm");
-    system("ld -o out out.o");
+    system(link_str.c_str());
     system("rm out.o");
     system("rm out.asm");
 

@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/compix.dir/src/main.cpp.o -o compix 
+/usr/bin/c++ -g CMakeFiles/compix.dir/src/main.cpp.o -o compix 

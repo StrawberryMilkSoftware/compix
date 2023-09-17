@@ -1,1 +1,3 @@
-exit 7;
+set x = 7;
+set y = x;
+exit(y);

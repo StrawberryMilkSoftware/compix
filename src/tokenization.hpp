@@ -8,7 +8,12 @@
 enum class TokenType {
     exit,
     _int,
-    semi
+    semi,
+    l_paren,
+    r_paren,
+    ident,
+    set,
+    eq
 };
 
 struct Token {
@@ -36,9 +41,15 @@ class Tokenizer {
                         tokens.push_back({.type = TokenType::exit});
                         buf.clear();
                         continue;
+                    } 
+                    else if (buf == "set"){
+                        tokens.push_back({.type = TokenType::set});
+                        buf.clear();
+                        continue;
                     } else {
-                        std::cerr << "i hate you" << std::endl;
-                        exit(EXIT_FAILURE);
+                        tokens.push_back({.type = TokenType::ident, .value = buf});
+                        buf.clear();
+                        continue;
                     }
                 }
                 else if (std::isdigit(peek().value())) {
@@ -50,9 +61,24 @@ class Tokenizer {
                     buf.clear();
                     continue;
                 }
+                else if (peek().value() == '(') {
+                    consume();
+                    tokens.push_back({.type = TokenType::l_paren});
+                    continue;
+                }
+                else if (peek().value() == ')') {
+                    consume();
+                    tokens.push_back({.type = TokenType::r_paren});
+                    continue;
+                }
                 else if (peek().value() == ';') {
                     consume();
                     tokens.push_back({.type = TokenType::semi});
+                    continue;
+                }
+                else if (peek().value() == '=') {
+                    consume();
+                    tokens.push_back({.type = TokenType::eq});
                     continue;
                 }
                 else if (std::isspace(peek().value())) {
@@ -69,11 +95,11 @@ class Tokenizer {
 
     private:
 
-        [[nodiscard]] inline std::optional<char> peek(int ahead = 1) const {
-            if (m_index + ahead > m_src.length()) {
+        [[nodiscard]] inline std::optional<char> peek(int offset = 0) const {
+            if (m_index + offset >= m_src.length()) {
                 return {};
             } else {
-                return m_src.at(m_index);
+                return m_src.at(m_index + offset);
             }
         }
 

@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/dumbprogrammer/projects/compix/build",
+  "command": "/usr/bin/c++   -g -std=gnu++20 -o CMakeFiles/compix.dir/src/main.cpp.o -c /home/dumbprogrammer/projects/compix/src/main.cpp",
+  "file": "/home/dumbprogrammer/projects/compix/src/main.cpp"
+}
+]
